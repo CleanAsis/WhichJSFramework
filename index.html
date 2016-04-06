@@ -1,27 +1,69 @@
 <!DOCTYPE html>
-<html lang="en-US" ng-app="TestApp">
+<html lang="en-US" ng-app="WhichJSFramework">
 <head>
-	<title>Angular Test</title>
+	<title>Which JS Framework</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script type="text/javascript">
-        var app = angular.module('TestApp', []);
-
-        app.controller('TestCtrl', function ($scope) {
-          $scope.data = [
-            [1 , 2, 3],
-            ['a', 'b', 'c']
-          ];
+        var app = angular.module('WhichJSFramework', []);
+        app.controller('Main', function ($scope) {
+            $scope.matrix = [{
+                text: 'Interface Elements',
+                categories: [{
+                    key: 'basic.widgets',
+                    title: 'Basic Widgets',
+                    text: 'buttons, text & number fields...'
+                },{
+                    key: 'compound.widgets',
+                    title: 'Compound Widgets',
+                    text: 'trees, grids, calendar...'
+                },{
+                    key: 'visualizations',
+                    title: 'Visualizations',
+                    text: 'charts, infographics'
+                },{
+                    key: 'containers',
+                    title: 'Containers',
+                    text: 'cards, tab panels, windows...'
+                },{
+                    key: 'themes',
+                    title: 'Themes'
+                },{
+                    key: 'visualizations',
+                    title: 'Styles'
+                }]
+            },{
+                text: 'View System',
+                categories: [{
+                    key: 'layout.system',
+                    title: 'Layout System',
+                    text: 'absolute, flexible'
+                },{
+                    key: 'interactions',
+                    title: 'Interactions',
+                    text: 'gestures, drag & drop'
+                }]
+            }];
         });
     </script>
+    <style type="text/css">
+        body { background: gray; color: white; font-family: arial; }
+        .top-category { background: white; padding: 10px; }
+        .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; }
+        .sub-categories { display: inline-block; width: 800px; }
+        .sub-category { display: inline-block; width: 220px; background: gray; padding: 5px; margin: 2px; text-align: center; }
+    </style>
 </head>
-<body ng-controller="TestCtrl">
+<body ng-controller="Main">
 
-Angular {{data}}
-<table>
-    <tr ng-repeat="row in data">
-        <td ng-repeat="col in row">{{col}}</td>
-    </tr>
-</table>
+<div ng-repeat="topCategory in matrix" class="top-category">
+    <div class="top-category-text">{{topCategory.text}}</div>
+    <div class="sub-categories">
+        <div ng-repeat="subCategory in topCategory.categories" class="sub-category">
+            <div class="sub-category-title">{{subCategory.title}}</div>
+            <div class="sub-category-text">{{subCategory.text}}</div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
