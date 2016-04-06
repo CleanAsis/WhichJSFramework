@@ -1,1 +1,27 @@
-Hello world!
+<!DOCTYPE html>
+<html lang="en-US" ng-app="TestApp">
+<head>
+	<title>Angular Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('TestApp', []);
+
+        app.controller('TestCtrl', function ($scope) {
+          $scope.data = [
+            [1 , 2, 3],
+            ['a', 'b', 'c']
+          ];
+        });
+    </script>
+</head>
+<body ng-controller="TestCtrl">
+
+Angular {{data}}
+<table>
+    <tr ng-repeat="row in data">
+        <td ng-repeat="col in row">{{col}}</td>
+    </tr>
+</table>
+
+</body>
+</html>
