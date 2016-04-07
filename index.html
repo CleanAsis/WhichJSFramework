@@ -4,161 +4,212 @@
 	<title>Which JS Framework</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script type="text/javascript">
-        var app = angular.module('WhichJSFramework', []);
-        app.controller('Main', function ($scope) {
-            $scope.matrix = [{
-                text: 'Interface Elements',
-                threeTilesPerLine: true,
-                categories: [{
-                    key: 'basic.widgets',
+        var matrixCellsArray = [{
+            text: 'Interface Elements',
+            threeTilesPerLine: true,
+            categories: {
+                'basic.widgets': {
                     title: 'Basic Widgets',
                     text: 'buttons, text & number fields...'
-                },{
-                    key: 'compound.widgets',
+                },
+                'compound.widgets': {
                     title: 'Compound Widgets',
                     text: 'trees, grids, calendar...'
-                },{
-                    key: 'visualizations',
+                },
+                'visualizations': {
                     title: 'Visualizations',
                     text: 'charts, infographics'
-                },{
-                    key: 'containers',
+                },
+                'containers': {
                     title: 'Containers',
                     text: 'cards, tab panels, windows...'
-                },{
-                    key: 'themes',
+                },
+                'themes': {
                     title: 'Themes'
-                },{
-                    key: 'visualizations',
+                },
+                'styles': {
                     title: 'Styles'
-                }]
-            },{
-                text: 'View System',
-                categories: [{
-                    key: 'layout.system',
+                }
+            }
+        },{
+            text: 'View System',
+            categories: {
+                'layout.system': {
                     title: 'Layout System',
                     text: 'absolute, flexible'
-                },{
-                    key: 'interactions',
+                },
+                'interactions': {
                     title: 'Interactions',
                     text: 'gestures, drag & drop'
-                },{
-                    key: 'drawing',
+                },
+                'drawing': {
                     title: 'Drawing',
                     text: 'vector, bitmap'
-                },{
-                    key: 'css.generation',
+                },
+                'css.generation': {
                     title: 'Theming',
                     text: 'computed styles'
-                },{
-                    key: 'templating',
+                },
+                'templating': {
                     title: 'Templating',
                     text: 'iterations, conditionals'
-                },{
-                    key: 'visual.effects',
+                },
+                'visual.effects': {
                     title: 'Visual Effects',
                     text: 'animations, filters...'
-                },{
-                    key: 'localization',
+                },
+                'localization': {
                     title: 'Localization',
                     text: 'RTL, locale libraries'
-                },{
-                    key: 'accessibility',
+                },
+                'accessibility': {
                     title: 'Accessibility',
                     text: 'focus manager, ARIA'
-                }]
-            },{
-                text: 'Logic & Data',
-                categories: [{
-                    key: 'routes',
+                }
+            }
+        },{
+            text: 'Logic & Data',
+            categories: {
+                'routes': {
                     title: 'State Manager',
                     text: 'history, undo, routes...'
-                },{
-                    key: 'data.binding',
+                },
+                'data.binding': {
                     title: 'Data Binding',
                     text: '1-way, 2-way'
-                },{
-                    key: 'modularity',
+                },
+                'modularity': {
                     title: 'Modularity',
                     text: 'MVC, MVVM'
-                },{
-                    key: 'events',
+                },
+                'events': {
                     title: 'Event System',
                     text: 'views, models, generic...'
-                },{
-                    key: 'data',
+                },
+                'data': {
                     title: 'Data Objects', // huh something different here?
                     text: 'collections, queues'
-                },{
-                    key: 'stores',
+                },
+                'stores': {
                     title: 'Datal Models & Stores',
                     text: ' group, sort, validate'
-                },{
-                    key: 'persistence',
+                },
+                'persistence': {
                     title: 'Persistent Data',
                     text: 'web storage, cache'
-                },{
-                    key: 'multimedia',
+                },
+                'multimedia': {
                     title: 'Multimedia',
                     text: '3D, audio, video'
-                }]
-            },{
-                text: 'Server I/O',
-                categories: [{
-                    key: 'xhr',
+                }
+            }
+        },{
+            text: 'Server I/O',
+            categories: {
+                'xhr': {
                     title: 'Server Calls',
                     text: 'async, conversion'
-                },{
-                    key: 'rpc',
+                },
+                'rpc': {
                     title: 'Server Method Invocation'
-                },{
-                    key: 'bidata',
+                },
+                'bidata': {
                     title: '2-Way Data',
-                },{
-                    key: 'push.notifications',
+                },
+                'push.notifications': {
                     title: 'Server Notifications'
-                }]
-            },{
-                text: 'DevTest & DevOps',
-                categories: [{
-                    key: 'qa',
+                }
+            }
+        },{
+            text: 'DevTest & DevOps',
+            categories: {
+                'qa': {
                     title: 'Testing',
                     text: 'dev, qa, browser farms'
-                },{
-                    key: 'ci',
+                },
+                'ci': {
                     title: 'Build & CI Tools',
                     text: 'minification, dev mode'
-                },{
-                    key: 'code.sharing',
+                },
+                'code.sharing': {
                     title: 'Code Sharing',
                     text: 'workspace, packages'
-                },{
-                    key: 'dev',
+                },
+                'dev': {
                     title: 'Dev Productivity',
                     text: 'watches, IDEs'
-                }]
-            }];
+                }
+            }
+        }];
+        
+        var frameworksArray = [{
+            name: 'Pre-HTML5',
+            changeCells: {
+                'basic.widgets': {
+                    support: 'partial'
+                }
+            }
+        },{
+            name: 'HTML5',
+            changeCells: {
+                'basic.widgets': {
+                    support: 'full'
+                }
+            }
+        }];
+        
+        function deepCloneArray(arr) {
+            return JSON.parse(JSON.stringify(arr));
+        }
+        
+        // merge the matrix cells with frameworks for a final data structure to be rendered
+        var matrix = [];
+        for (var i = 0; i < frameworksArray.length; i++) {
+            var framework = frameworksArray[i];
+            matrix.push(framework);
+            framework.categories = deepCloneArray(matrixCellsArray);
+            for (var changedCell in framework.changeCells) {
+                for (var j = 0; j < framework.categories.length; j++) {
+                    var topCategory = framework.categories[j];
+                    if (topCategory.categories[changedCell]) {
+                        // really need object merge here
+                        topCategory.categories[changedCell].support = framework.changeCells[changedCell].support;
+                    }
+                }
+            }
+        }
+        console.log(matrix);
+    
+        var app = angular.module('WhichJSFramework', []);
+        var ctl = app.controller('Main', function ($scope) {
+            $scope.matrix = matrix;
         });
     </script>
     <style type="text/css">
         body { background: gray; color: white; font-family: arial; font-size: 12px; }
+        .framework-name { padding: 10px; font-size: 20px; font-weight: bold; text-shadow: red 1px 1px; }
         .top-category { background: white; padding: 10px; }
         .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; padding: 10px; }
         .sub-categories { display: inline-block; width: 800px; }
         .sub-category { display: inline-block; width: 170px; height: 40px; vertical-align: middle; background: gray; padding: 5px; margin: 2px; text-align: center; }
         .top-category.threeTilesPerLine .sub-category { width: 231px; }
+        .sub-category.support-full { background: green; }
+        .sub-category.support-partial { background: linear-gradient(135deg, #ffffff 0%,#007c08 100%); }
         .sub-category-wrap { display: flex; flex-direction: column; justify-content: center; height: 100% }
     </style>
 </head>
 <body ng-controller="Main">
 
-<div ng-repeat="topCategory in matrix" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
-    <div class="top-category-text">{{topCategory.text}}</div>
-    <div class="sub-categories">
-        <div ng-repeat="subCategory in topCategory.categories" class="sub-category">
-            <div class="sub-category-wrap">
-                <div class="sub-category-title">{{subCategory.title}}</div>
-                <div class="sub-category-text">{{subCategory.text}}</div>
+<div ng-repeat="framework in matrix">
+    <div class="framework-name">{{framework.name}}</div>
+    <div ng-repeat="topCategory in framework.categories" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
+        <div class="top-category-text">{{topCategory.text}}</div>
+        <div class="sub-categories">
+            <div ng-repeat="subCategory in topCategory.categories" class="sub-category" ng-class="{'support-full': subCategory.support=='full', 'support-partial': subCategory.support=='partial'}">
+                <div class="sub-category-wrap">
+                    <div class="sub-category-title">{{subCategory.title}}</div>
+                    <div class="sub-category-text">{{subCategory.text}}</div>
+                </div>
             </div>
         </div>
     </div>
