@@ -8,6 +8,7 @@
         app.controller('Main', function ($scope) {
             $scope.matrix = [{
                 text: 'Interface Elements',
+                threeTilesPerLine: true,
                 categories: [{
                     key: 'basic.widgets',
                     title: 'Basic Widgets',
@@ -41,26 +42,124 @@
                     key: 'interactions',
                     title: 'Interactions',
                     text: 'gestures, drag & drop'
+                },{
+                    key: 'drawing',
+                    title: 'Drawing',
+                    text: 'vector, bitmap'
+                },{
+                    key: 'css.generation',
+                    title: 'Theming',
+                    text: 'computed styles'
+                },{
+                    key: 'templating',
+                    title: 'Templating',
+                    text: 'iterations, conditionals'
+                },{
+                    key: 'visual.effects',
+                    title: 'Visual Effects',
+                    text: 'animations, filters...'
+                },{
+                    key: 'localization',
+                    title: 'Localization',
+                    text: 'RTL, locale libraries'
+                },{
+                    key: 'accessibility',
+                    title: 'Accessibility',
+                    text: 'focus manager, ARIA'
+                }]
+            },{
+                text: 'Logic & Data',
+                categories: [{
+                    key: 'routes',
+                    title: 'State Manager',
+                    text: 'history, undo, routes...'
+                },{
+                    key: 'data.binding',
+                    title: 'Data Binding',
+                    text: '1-way, 2-way'
+                },{
+                    key: 'modularity',
+                    title: 'Modularity',
+                    text: 'MVC, MVVM'
+                },{
+                    key: 'events',
+                    title: 'Event System',
+                    text: 'views, models, generic...'
+                },{
+                    key: 'data',
+                    title: 'Data Objects', // huh something different here?
+                    text: 'collections, queues'
+                },{
+                    key: 'stores',
+                    title: 'Datal Models & Stores',
+                    text: ' group, sort, validate'
+                },{
+                    key: 'persistence',
+                    title: 'Persistent Data',
+                    text: 'web storage, cache'
+                },{
+                    key: 'multimedia',
+                    title: 'Multimedia',
+                    text: '3D, audio, video'
+                }]
+            },{
+                text: 'Server I/O',
+                categories: [{
+                    key: 'xhr',
+                    title: 'Server Calls',
+                    text: 'async, conversion'
+                },{
+                    key: 'rpc',
+                    title: 'Server Method Invocation'
+                },{
+                    key: 'bidata',
+                    title: '2-Way Data',
+                },{
+                    key: 'push.notifications',
+                    title: 'Server Notifications'
+                }]
+            },{
+                text: 'DevTest & DevOps',
+                categories: [{
+                    key: 'qa',
+                    title: 'Testing',
+                    text: 'dev, qa, browser farms'
+                },{
+                    key: 'ci',
+                    title: 'Build & CI Tools',
+                    text: 'minification, dev mode'
+                },{
+                    key: 'code.sharing',
+                    title: 'Code Sharing',
+                    text: 'workspace, packages'
+                },{
+                    key: 'dev',
+                    title: 'Dev Productivity',
+                    text: 'watches, IDEs'
                 }]
             }];
         });
     </script>
     <style type="text/css">
-        body { background: gray; color: white; font-family: arial; }
+        body { background: gray; color: white; font-family: arial; font-size: 12px; }
         .top-category { background: white; padding: 10px; }
-        .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; }
+        .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; padding: 10px; }
         .sub-categories { display: inline-block; width: 800px; }
-        .sub-category { display: inline-block; width: 220px; background: gray; padding: 5px; margin: 2px; text-align: center; }
+        .sub-category { display: inline-block; width: 170px; height: 40px; vertical-align: middle; background: gray; padding: 5px; margin: 2px; text-align: center; }
+        .top-category.threeTilesPerLine .sub-category { width: 231px; }
+        .sub-category-wrap { display: flex; flex-direction: column; justify-content: center; height: 100% }
     </style>
 </head>
 <body ng-controller="Main">
 
-<div ng-repeat="topCategory in matrix" class="top-category">
+<div ng-repeat="topCategory in matrix" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
     <div class="top-category-text">{{topCategory.text}}</div>
     <div class="sub-categories">
         <div ng-repeat="subCategory in topCategory.categories" class="sub-category">
-            <div class="sub-category-title">{{subCategory.title}}</div>
-            <div class="sub-category-text">{{subCategory.text}}</div>
+            <div class="sub-category-wrap">
+                <div class="sub-category-title">{{subCategory.title}}</div>
+                <div class="sub-category-text">{{subCategory.text}}</div>
+            </div>
         </div>
     </div>
 </div>
