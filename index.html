@@ -145,16 +145,84 @@
         var frameworksArray = [{
             name: 'Pre-HTML5',
             changeCells: {
-                'basic.widgets': {
-                    support: 'partial'
-                }
+                'basic.widgets': { support: 'partial' },
+                'styles': { support: 'full' },
+                'layout.system': { support: 'partial'}
             }
         },{
             name: 'HTML5',
             changeCells: {
                 'basic.widgets': {
-                    support: 'full'
+                    support: 'full',
+                    title: '',
+                    text: 'Range, Color Picker, Date/Time, Progress, Telephone...'
+                },
+                'styles': {
+                    support: 'full',
+                    title: 'Gradients, Border Radius'
+                },
+                'layout.system': {
+                    support: 'full',
+                    title: 'Flexbox, Multicolumn',
+                    text: ''
+                },
+                'interactions': {
+                    support: 'partial',
+                    title: 'Drag & Drop',
+                    text: ''
+                },
+                'drawing': {
+                    support: 'full',
+                    title: 'SVG, Canvas',
+                    text: ''
+                },
+                'visual.effects': {
+                    support: 'full',
+                    title: 'CSS Animations & Filters',
+                    text: ''
+                },
+                'accessibility': {
+                    support: 'full',
+                    title: 'WAI-ARIA',
+                    text: ''
+                },
+                'routes': {
+                    support: 'full',
+                    title: 'History Push State',
+                    text: ''
+                },
+                'persistence': {
+                    support: 'full',
+                    title: '',
+                    text: 'Local Storage, Indexed DB, App-cache'
+                },
+                'multimedia': {
+                    support: 'full',
+                    title: '',
+                    text: 'Video, Audio, WebGL'
                 }
+            }
+        },{
+            name: 'Bootstrap',
+            changeCells: {
+                'basic.widgets': { support: 'full' },
+                'containers': { support: 'full' },
+                'themes': { support: 'full' },
+                'styles': { support: 'full' },
+                'layout.system': { support: 'partial', text: 'responsive grid' },
+                'css.generation': { support: 'full' },
+                'visual.effects': { support: 'partial' }
+            }
+        },{
+            name: 'AngularJS',
+            changeCells: {
+                'templating': { support: 'full' },
+                'routes': { support: 'partial', text: 'routes' },
+                'data.binding': { support: 'full' },
+                'modularity': { support: 'partial', text: 'MVC' },
+                'events': { support: 'full' },
+                'stores': { support: 'partial' },
+                'qa': { support: 'full' }
             }
         }];
         
@@ -172,8 +240,9 @@
                 for (var j = 0; j < framework.categories.length; j++) {
                     var topCategory = framework.categories[j];
                     if (topCategory.categories[changedCell]) {
-                        // really need object merge here
                         topCategory.categories[changedCell].support = framework.changeCells[changedCell].support;
+                        if (framework.changeCells[changedCell].hasOwnProperty('title')) topCategory.categories[changedCell].title = framework.changeCells[changedCell].title;
+                        if (framework.changeCells[changedCell].hasOwnProperty('text')) topCategory.categories[changedCell].text = framework.changeCells[changedCell].text;
                     }
                 }
             }
@@ -184,9 +253,11 @@
         var ctl = app.controller('Main', function ($scope) {
             $scope.matrix = matrix;
         });
+        
     </script>
     <style type="text/css">
         body { background: gray; color: white; font-family: arial; font-size: 12px; }
+        .search { font-size: 15px; text-shadow: cornflowerblue 1px 1px; font-weight: bold; }
         .framework-name { padding: 10px; font-size: 20px; font-weight: bold; text-shadow: red 1px 1px; }
         .top-category { background: white; padding: 10px; }
         .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; padding: 10px; }
@@ -200,7 +271,9 @@
 </head>
 <body ng-controller="Main">
 
-<div ng-repeat="framework in matrix">
+<label class="search">Search: <input ng-model="search"></label>
+
+<div ng-repeat="framework in matrix | filter:{name: search}">
     <div class="framework-name">{{framework.name}}</div>
     <div ng-repeat="topCategory in framework.categories" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
         <div class="top-category-text">{{topCategory.text}}</div>
