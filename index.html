@@ -224,6 +224,47 @@
                 'stores': { support: 'partial' },
                 'qa': { support: 'full' }
             }
+        },{
+            name: 'Backbone',
+            changeCells: {
+                'routes': { support: 'partial', text: '' },
+                'data': { support: 'partial' },
+                'stores': { support: 'partial' },
+                'xhr': { support: 'full' }
+            }
+        },{
+            name: 'jQuery + jQueryUI',
+            changeCells: {
+                'basic.widgets': { support: 'full' },
+                'compound.widgets': { support: 'partial' },
+                'containers': { support: 'full' },
+                'themes': { support: 'full' },
+                'styles': { support: 'partial' },
+                'interactions': { support: 'partial', title: 'Drag & Drop', text: '' },
+                'css.generation': { support: 'partial' },
+                'visual.effects': { support: 'partial' },
+                'localization': { support: 'partial' },
+                'accessibility': { support: 'partial' },
+                'xhr': { support: 'partial' }
+            }
+        },{
+            name: 'Ember',
+            changeCells: {
+                'templating': { support: 'full' },
+                'routes': { support: 'partial' },
+                'data.binding': { support: 'full' },
+                'modularity': { support: 'partial', text: 'MVC' },
+                'stores': { support: 'partial' }
+            }
+        },{
+            name: 'React',
+            changeCells: {
+                'templating': { support: 'full' },
+                'data.binding': { support: 'full' },
+                'modularity': { support: 'partial' },
+                'events': { support: 'partial' },
+                'qa': { support: 'full' }
+            }
         }];
         
         function deepCloneArray(arr) {
