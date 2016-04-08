@@ -338,11 +338,19 @@
                 'data.binding': { support: 'full' },
                 'infinite.scroll': { support: 'full' },
                 'persistence': { support: 'full', text: 'local storage' },
-                'open.source': { support: 'full' },
                 'xhr': { support: 'partial', text: 'xhr' },
                 'qa': { support: 'full' },
                 'ci': { support: 'full' },
-                'dev': { support: 'partial' }
+                'dev': { support: 'partial' },
+                'open.source': { support: 'full' }
+            }
+        },{
+            name: 'Knockout',
+            changeCells: {
+                'data.binding': { support: 'full' },
+                'templating': { support: 'full' },
+                'modularity': { support: 'partial', text: 'MVVM' },
+                'open.source': { support: 'full' }
             }
         }];
         
@@ -391,7 +399,7 @@
 </head>
 <body ng-controller="Main">
 
-<label class="search">Search: <input ng-model="search"></label>
+<label class="search">Search by Name: <input ng-model="search"></label>
 
 <div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'">
     <div class="framework-name">{{framework.name}}</div>
