@@ -25,7 +25,8 @@
                     text: 'cards, tab panels, windows...'
                 },
                 'themes': {
-                    title: 'Themes'
+                    title: 'Themes',
+                    text: 'Computed Styles'
                 },
                 'styles': {
                     title: 'Styles'
@@ -34,7 +35,7 @@
         },{
             text: 'View System',
             categories: {
-                'layout.system': {
+                'layouts': {
                     title: 'Layout System',
                     text: 'absolute, flexible'
                 },
@@ -46,9 +47,8 @@
                     title: 'Drawing',
                     text: 'vector, bitmap'
                 },
-                'css.generation': {
-                    title: 'Theming',
-                    text: 'computed styles'
+                'dom': {
+                    title: 'DOM Manipulation'
                 },
                 'templating': {
                     title: 'Templating',
@@ -86,9 +86,8 @@
                     title: 'Event System',
                     text: 'views, models, generic...'
                 },
-                'data': {
-                    title: 'Data Objects', // huh something different here?
-                    text: 'collections, queues'
+                'infinite.scroll': {
+                    title: 'Infinite Scrolling'
                 },
                 'stores': {
                     title: 'Datal Models & Stores',
@@ -121,7 +120,7 @@
                 }
             }
         },{
-            text: 'DevTest & DevOps',
+            text: 'Enterprise',
             categories: {
                 'qa': {
                     title: 'Testing',
@@ -138,6 +137,19 @@
                 'dev': {
                     title: 'Dev Productivity',
                     text: 'watches, IDEs'
+                },
+                'support': {
+                    title: 'Pro Support'
+                },
+                'services': {
+                    title: 'Pro Services'
+                },
+                'corp': {
+                    title: 'Corporate Backing',
+                    text: 'monetized product'
+                },
+                'open.source': {
+                    title: 'Open Source'
                 }
             }
         }];
@@ -147,7 +159,7 @@
             changeCells: {
                 'basic.widgets': { support: 'partial' },
                 'styles': { support: 'full' },
-                'layout.system': { support: 'partial'}
+                'layouts': { support: 'partial'}
             }
         },{
             name: 'HTML5',
@@ -161,7 +173,7 @@
                     support: 'full',
                     title: 'Gradients, Border Radius'
                 },
-                'layout.system': {
+                'layouts': {
                     support: 'full',
                     title: 'Flexbox, Multicolumn',
                     text: ''
@@ -209,28 +221,30 @@
                 'containers': { support: 'full' },
                 'themes': { support: 'full' },
                 'styles': { support: 'full' },
-                'layout.system': { support: 'partial', text: 'responsive grid' },
-                'css.generation': { support: 'full' },
-                'visual.effects': { support: 'partial' }
+                'layouts': { support: 'partial', text: 'responsive grid' },
+                'visual.effects': { support: 'partial' },
+                'open.source': { support: 'full' }
             }
         },{
             name: 'AngularJS',
             changeCells: {
+                'dom': { support: 'full' },
                 'templating': { support: 'full' },
                 'routes': { support: 'partial', text: 'routes' },
                 'data.binding': { support: 'full' },
                 'modularity': { support: 'partial', text: 'MVC' },
                 'events': { support: 'full' },
                 'stores': { support: 'partial' },
-                'qa': { support: 'full' }
+                'qa': { support: 'full' },
+                'open.source': { support: 'full' }
             }
         },{
             name: 'Backbone',
             changeCells: {
                 'routes': { support: 'partial', text: '' },
-                'data': { support: 'partial' },
                 'stores': { support: 'partial' },
-                'xhr': { support: 'full' }
+                'xhr': { support: 'full' },
+                'open.source': { support: 'full' }
             }
         },{
             name: 'jQuery + jQueryUI',
@@ -241,29 +255,94 @@
                 'themes': { support: 'full' },
                 'styles': { support: 'partial' },
                 'interactions': { support: 'partial', title: 'Drag & Drop', text: '' },
-                'css.generation': { support: 'partial' },
+                'dom': { support: 'full' },
                 'visual.effects': { support: 'partial' },
                 'localization': { support: 'partial' },
                 'accessibility': { support: 'partial' },
-                'xhr': { support: 'partial' }
+                'xhr': { support: 'partial' },
+                'open.source': { support: 'full' }
             }
         },{
             name: 'Ember',
             changeCells: {
                 'templating': { support: 'full' },
+                'dom': { support: 'partial' },
                 'routes': { support: 'partial' },
                 'data.binding': { support: 'full' },
                 'modularity': { support: 'partial', text: 'MVC' },
-                'stores': { support: 'partial' }
+                'stores': { support: 'partial' },
+                'open.source': { support: 'full' }
             }
         },{
             name: 'React',
             changeCells: {
                 'templating': { support: 'full' },
+                'dom': { support: 'partial' },
+                'templating': { support: 'full' },
                 'data.binding': { support: 'full' },
                 'modularity': { support: 'partial' },
+                // 'visual.effects': { support: 'full' }, // "experimental" 
                 'events': { support: 'partial' },
-                'qa': { support: 'full' }
+                'qa': { support: 'full' },
+                'open.source': { support: 'full' }
+            }
+        },{
+            name: 'ExtJS',
+            changeCells: {
+                'basic.widgets': { support: 'full' },
+                'compound.widgets': { support: 'full' },
+                'visualizations': { support: 'full' },
+                'containers': { support: 'full' },
+                'themes': { support: 'full' },
+                'styles': { support: 'full' },
+                'layouts': { support: 'full', text: 'abstracted responsive' },
+                'interactions': { support: 'full' },
+                'drawing': { support: 'full' },
+                'dom': { support: 'full' },
+                'templating': { support: 'full' },
+                'visual.effects': { support: 'full' },
+                'localization': { support: 'full' },
+                'accessibility': { support: 'full' },
+                'routes': { support: 'full' },
+                'data.binding': { support: 'full' },
+                'modularity': { support: 'full' },
+                'events': { support: 'full' },
+                'infinite.scroll': { support: 'full' },
+                'stores': { support: 'full' },
+                'persistence': { support: 'full' },
+                'xhr': { support: 'full' },
+                'rpc': { support: 'full' },
+                'bidata': { support: 'full' },
+                'qa': { support: 'full' },
+                'ci': { support: 'full' },
+                'code.sharing': { support: 'full' },
+                'dev': { support: 'full' },
+                'support': { support: 'full' },
+                'services': { support: 'full' },
+                'corp': { support: 'full' },
+                'open.source': { support: 'partial' }
+            }
+        },{
+            name: 'Polymer',
+            changeCells: {
+                'basic.widgets': { support: 'full' },
+                'containers': { support: 'partial', text: '' },
+                'styles': { support: 'full' },
+                'themes': { support: 'partial', text: '' },
+                'layouts': { support: 'partial' },
+                'visual.effects': { support: 'full', text: 'animations' },
+                'dom': { support: 'full' },
+                'templating': { support: 'full' },
+                'accessibility': { support: 'full' },
+                'routes': { support: 'full', text: 'routes' },
+                'data.binding': { support: 'full' },
+                'infinite.scroll': { support: 'full' },
+                'persistence': { support: 'full', text: 'local storage' },
+                'open.source': { support: 'full' },
+                'xhr': { support: 'partial', text: 'xhr' },
+                'qa': { support: 'full' },
+                'ci': { support: 'full' },
+                'dev': { support: 'partial' }
             }
         }];
         
@@ -314,7 +393,7 @@
 
 <label class="search">Search: <input ng-model="search"></label>
 
-<div ng-repeat="framework in matrix | filter:{name: search}">
+<div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'">
     <div class="framework-name">{{framework.name}}</div>
     <div ng-repeat="topCategory in framework.categories" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
         <div class="top-category-text">{{topCategory.text}}</div>
