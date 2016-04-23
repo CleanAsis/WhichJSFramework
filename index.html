@@ -352,6 +352,43 @@
                 'modularity': { support: 'partial', text: 'MVVM' },
                 'open.source': { support: 'full' }
             }
+        },{
+            name: 'Meteor',
+            description: 'Meteor is a full-stack framework with a lot of features revolving around ' +
+                              'running the same JS code in both front-end and back-end, and synchronizing ' +
+                              'the view with some bits features like optimistic rendering predictions. Many ' +
+                              'parts of the Meteor framework are "unsupported community packages".',
+            changeCells: {
+                'data.binding': { support: 'full' },
+                'stores': { support: 'full' },
+                'templating': { support: 'full' },
+                'persistence': { support: 'full' },
+                'events': { support: 'partial' },
+                'xhr': { support: 'full' },
+                'rpc': { support: 'full' },
+                'bidata': { support: 'full' },
+                'ci': { support: 'full' },
+                'support': { support: 'full' },
+                'services': { support: 'full' },
+                'corp': { support: 'full' },
+                'qa': { support: 'partial' },
+                'dev': { support: 'full' },
+                'code.sharing': { support: 'full' },
+                'open.source': { support: 'full' }
+            }
+        },{
+            name: 'Aurelia',
+            changeCells: {
+                'data.binding': { support: 'full' },
+                'routes': { support: 'full' },
+                'templating': { support: 'full' },
+                'modularity': { support: 'full' },
+                'ci': { support: 'full' },
+                'support': { support: 'full' },
+                'services': { support: 'full' },
+                'corp': { support: 'full' },
+                'open.source': { support: 'full' }
+            }
         }];
         
         function deepCloneArray(arr) {
@@ -386,8 +423,9 @@
     <style type="text/css">
         body { background: gray; color: white; font-family: arial; font-size: 12px; }
         .search { font-size: 15px; text-shadow: cornflowerblue 1px 1px; font-weight: bold; }
-        .framework-name { padding: 10px; font-size: 20px; font-weight: bold; text-shadow: red 1px 1px; }
-        .top-category { background: white; padding: 10px; }
+        .framework { background: white; padding: 10px; margin: 10px; border-radius: 10px 10px 0 0; box-shadow: white 0px 0px 7px; border-bottom: 1px solid gray;}
+        .framework-name { padding: 10px; font-size: 20px; font-weight: bold; text-shadow: red 1px 1px; text-shadow: red 0px 0px 5px; }
+        .framework-description { color: black; padding: 5px 10px;}
         .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; padding: 10px; }
         .sub-categories { display: inline-block; width: 800px; }
         .sub-category { display: inline-block; width: 170px; height: 40px; vertical-align: middle; background: gray; padding: 5px; margin: 2px; text-align: center; }
@@ -401,8 +439,11 @@
 
 <label class="search">Search by Name: <input ng-model="search"></label>
 
-<div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'">
-    <div class="framework-name">{{framework.name}}</div>
+<div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'" class="framework">
+    <div class="framework-header">
+        <div class="framework-name">{{framework.name}}</div>
+        <div class="framework-description">{{framework.description}}</div>
+    </div>
     <div ng-repeat="topCategory in framework.categories" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
         <div class="top-category-text">{{topCategory.text}}</div>
         <div class="sub-categories">
