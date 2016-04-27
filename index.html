@@ -3,6 +3,7 @@
 <head>
 	<title>Which JS Framework</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="lib/opentip-native.js"></script>
     <script type="text/javascript">
         var matrixCellsArray = [{
             text: 'Interface Elements',
@@ -226,9 +227,13 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'AngularJS',
+            name: 'AngularJS 1.5',
+            sizeJS: '150 KB',
+            description: 'Originally AngularJS was defined as a "framework to build frameworks"; latest ' +
+                              'verbiage is "a toolset for building the framework most suited to your application development". ' +
+                              'Angular is heavily DOM-focused and the 1.5 version is plagued with data binding performance issues.',
             changeCells: {
-                'dom': { support: 'full' },
+                'dom': { support: 30, description: 'Angular uses a stripped down version of jQuery for DOM manipulation.' },
                 'templating': { support: 'full' },
                 'routes': { support: 'partial', text: 'routes' },
                 'data.binding': { support: 'full' },
@@ -287,7 +292,13 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'ExtJS',
+            name: 'ExtJS 6',
+            sizeJS: '2 MB',
+            sizeCSS: '430 KB',
+            description: 'One of the oldest and certainly the largest (2 MB minified JS!) front-end frameworks ' +
+                              'out there, the latest iteration of ExtJS manifests as 2 frameworks with common core: ' +
+                              'the original ExtJS as "classic" and Sencha Touch as "modern". Includes an intelligent ' +
+                              'compiler that builds your app with only a sub-set of the framework that is actually used.',
             changeCells: {
                 'basic.widgets': { support: 'full' },
                 'compound.widgets': { support: 'full' },
@@ -320,7 +331,7 @@
                 'support': { support: 'full' },
                 'services': { support: 'full' },
                 'corp': { support: 'full' },
-                'open.source': { support: 'partial' }
+                'open.source': { support: 80, description: 'While full source is available, there is no public access to active development repository.'  }
             }
         },{
             name: 'Polymer',
@@ -406,6 +417,7 @@
                     var topCategory = framework.categories[j];
                     if (topCategory.categories[changedCell]) {
                         topCategory.categories[changedCell].support = framework.changeCells[changedCell].support;
+                        topCategory.categories[changedCell].description = framework.changeCells[changedCell].description;
                         if (framework.changeCells[changedCell].hasOwnProperty('title')) topCategory.categories[changedCell].title = framework.changeCells[changedCell].title;
                         if (framework.changeCells[changedCell].hasOwnProperty('text')) topCategory.categories[changedCell].text = framework.changeCells[changedCell].text;
                     }
@@ -417,22 +429,37 @@
         var app = angular.module('WhichJSFramework', []);
         var ctl = app.controller('Main', function ($scope) {
             $scope.matrix = matrix;
+            // function for calculating gradient highlights
+            $scope.getSupportedPercentageStyle = function(supported) { // supported is 0-100
+                var finalPercentage  = 0; // this needs to go from -100 to 100, from 0-100 of the supported var
+                if (supported) {
+                    if (supported === 'full') { finalPercentage = 100; }
+                    else if (supported === 'partial') { finalPercentage = -30;}
+                    else if (typeof supported === 'number') { finalPercentage = supported*2-100; }
+                    return {
+                        'background': 'radial-gradient(green ' + finalPercentage + '%, gray)'
+                    };
+                } else {
+                    return null;
+                }
+            }
         });
         
     </script>
+    <link href="lib/opentip.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         body { background: gray; color: white; font-family: arial; font-size: 12px; }
         .search { font-size: 15px; text-shadow: cornflowerblue 1px 1px; font-weight: bold; }
-        .framework { background: white; padding: 10px; margin: 10px; border-radius: 10px 10px 0 0; box-shadow: white 0px 0px 7px; border-bottom: 1px solid gray;}
-        .framework-name { padding: 10px; font-size: 20px; font-weight: bold; text-shadow: red 1px 1px; text-shadow: red 0px 0px 5px; }
+        .framework { min-width: 760px; background: white; padding: 10px; margin: 10px; border-radius: 10px 10px 0 0; box-shadow: white 0px 0px 7px; border-bottom: 1px solid gray;}
+        .framework-name { display: inline; padding: 10px; font-size: 20px; font-weight: bold; text-shadow: red 1px 1px; text-shadow: red 0px 0px 5px; }
+        .framework-size { display: inline; color: black; font-style: italic; border: 1px solid gray; padding: 3px; border-radius: 5px; }
         .framework-description { color: black; padding: 5px 10px;}
         .top-category-text { display: inline-block; width: 150px; font-weight: bold; font-size: 150%; color: black; padding: 10px; }
         .sub-categories { display: inline-block; width: 800px; }
-        .sub-category { display: inline-block; width: 170px; height: 40px; vertical-align: middle; background: gray; padding: 5px; margin: 2px; text-align: center; }
+        .sub-category { display: inline-block; position: relative; width: 170px; height: 40px; vertical-align: middle; background: gray; margin: 2px; text-align: center; padding: 5px; }
         .top-category.threeTilesPerLine .sub-category { width: 231px; }
-        .sub-category.support-full { background: green; }
-        .sub-category.support-partial { background: linear-gradient(135deg, #ffffff 0%,#007c08 100%); }
-        .sub-category-wrap { display: flex; flex-direction: column; justify-content: center; height: 100% }
+        .sub-category-inner { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+        .sub-category-tooltip { position: absolute; right: -3px; top: -3px; color: white; background: cornflowerblue; border-radius: 10px; width: 20px; height: 20px; line-height: 20px; cursor: default; } 
     </style>
 </head>
 <body ng-controller="Main">
@@ -442,13 +469,20 @@
 <div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'" class="framework">
     <div class="framework-header">
         <div class="framework-name">{{framework.name}}</div>
+        <div class="framework-size" ng-if="framework.sizeJS">JS {{framework.sizeJS}}</div>
+        <div class="framework-size" ng-if="framework.sizeCSS">CSS {{framework.sizeCSS}}</div>
         <div class="framework-description">{{framework.description}}</div>
     </div>
     <div ng-repeat="topCategory in framework.categories" class="top-category" ng-class="{threeTilesPerLine: topCategory.threeTilesPerLine}">
         <div class="top-category-text">{{topCategory.text}}</div>
         <div class="sub-categories">
-            <div ng-repeat="subCategory in topCategory.categories" class="sub-category" ng-class="{'support-full': subCategory.support=='full', 'support-partial': subCategory.support=='partial'}">
-                <div class="sub-category-wrap">
+            <div ng-repeat="subCategory in topCategory.categories" class="sub-category" 
+                ng-style="getSupportedPercentageStyle(subCategory.support)"
+                >
+                <div class="sub-category-tooltip" ng-if="subCategory.description" ng-attr-data-ot="{{subCategory.description}}">
+                    i
+                </div>
+                <div class="sub-category-inner">
                     <div class="sub-category-title">{{subCategory.title}}</div>
                     <div class="sub-category-text">{{subCategory.text}}</div>
                 </div>
