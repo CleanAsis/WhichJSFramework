@@ -216,7 +216,10 @@
                 }
             }
         },{
-            name: 'Bootstrap',
+            name: 'Bootstrap 3.3.6',
+            description: 'A framework focused mostly on styling',
+            sizeJS: '40 KB',
+            sizeCSS: '120 KB',
             changeCells: {
                 'basic.widgets': { support: 'full' },
                 'containers': { support: 'full' },
@@ -231,7 +234,8 @@
             sizeJS: '150 KB',
             description: 'Originally AngularJS was defined as a "framework to build frameworks"; latest ' +
                               'verbiage is "a toolset for building the framework most suited to your application development". ' +
-                              'Angular is heavily DOM-focused and the 1.5 version is plagued with data binding performance issues.',
+                              'Angular is heavily DOM-focused and the 1.5 version is plagued with data binding performance ' +
+                              'issues which are supposed to be addressed in version 2 (now in beta). This app is written in AngularJS.',
             changeCells: {
                 'dom': { support: 30, description: 'Angular uses a stripped down version of jQuery for DOM manipulation.' },
                 'templating': { support: 'full' },
@@ -244,7 +248,8 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'Backbone',
+            name: 'Backbone 1.2.2',
+            sizeJS: '27 KB',
             changeCells: {
                 'routes': { support: 'partial', text: '' },
                 'stores': { support: 'partial' },
@@ -252,7 +257,9 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'jQuery + jQueryUI',
+            name: 'jQuery 1.10.2 + jQueryUI 1.11.4',
+            sizeJS: '100 KB + 235 KB',
+            sizeCSS: '60 KB',
             changeCells: {
                 'basic.widgets': { support: 'full' },
                 'compound.widgets': { support: 'partial' },
@@ -268,7 +275,8 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'Ember',
+            name: 'Ember 1.10',
+            sizeJS: '570 KB',
             changeCells: {
                 'templating': { support: 'full' },
                 'dom': { support: 'partial' },
@@ -279,14 +287,15 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'React',
+            name: 'React 15',
+            sizeJS: '290 KB',
             changeCells: {
                 'templating': { support: 'full' },
                 'dom': { support: 'partial' },
                 'templating': { support: 'full' },
                 'data.binding': { support: 'full' },
                 'modularity': { support: 'partial' },
-                // 'visual.effects': { support: 'full' }, // "experimental" 
+                'visual.effects': { support: 20, description: '"experimental"' }, 
                 'events': { support: 'partial' },
                 'qa': { support: 'full' },
                 'open.source': { support: 'full' }
@@ -295,7 +304,7 @@
             name: 'ExtJS 6',
             sizeJS: '2 MB',
             sizeCSS: '430 KB',
-            description: 'One of the oldest and certainly the largest (2 MB minified JS!) front-end frameworks ' +
+            description: 'One of the oldest and certainly the largest (2 MB minified JS!) front-end framework ' +
                               'out there, the latest iteration of ExtJS manifests as 2 frameworks with common core: ' +
                               'the original ExtJS as "classic" and Sencha Touch as "modern". Includes an intelligent ' +
                               'compiler that builds your app with only a sub-set of the framework that is actually used.',
@@ -318,7 +327,7 @@
                 'data.binding': { support: 'full' },
                 'modularity': { support: 'full' },
                 'events': { support: 'full' },
-                'infinite.scroll': { support: 'full' },
+                'infinite.scroll': { support: 'full', description: 'Implemented as a part of ExtJS "most powerful web grid" that goes beyond simply appending more DOM, and actually recycles trailing DOM.' },
                 'stores': { support: 'full' },
                 'persistence': { support: 'full' },
                 'xhr': { support: 'full' },
@@ -334,7 +343,10 @@
                 'open.source': { support: 80, description: 'While full source is available, there is no public access to active development repository.'  }
             }
         },{
-            name: 'Polymer',
+            name: 'Polymer 1.0',
+            sizeJS: '82 KB',
+            description: 'Polymer is an attempt to polyfill WebComponents and ShadowDOM spec in all browsers ' +
+                              '(the spec is only implemented in Chrome), which it does to some degree of success.',
             changeCells: {
                 'basic.widgets': { support: 'full' },
                 'containers': { support: 'partial', text: '' },
@@ -356,7 +368,8 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'Knockout',
+            name: 'Knockout 3.4.0',
+            sizeJS: '54 KB',
             changeCells: {
                 'data.binding': { support: 'full' },
                 'templating': { support: 'full' },
@@ -364,7 +377,8 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'Meteor',
+            name: 'Meteor 1.3.2.4',
+            sizeJS: '330 KB',
             description: 'Meteor is a full-stack framework with a lot of features revolving around ' +
                               'running the same JS code in both front-end and back-end, and synchronizing ' +
                               'the view with some bits features like optimistic rendering predictions. Many ' +
@@ -388,7 +402,10 @@
                 'open.source': { support: 'full' }
             }
         },{
-            name: 'Aurelia',
+            name: 'Aurelia 0.19.6',
+            description: 'Aurelia borrows a lot of concepts from Angular (i.e. DOM-heavy directives) and tries to ' +
+                              'to focus on JS preprocessors out of the box.',
+            sizeJS: '25 KB',
             changeCells: {
                 'data.binding': { support: 'full' },
                 'routes': { support: 'full' },
