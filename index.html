@@ -91,7 +91,7 @@
                     title: 'Infinite Scrolling'
                 },
                 'stores': {
-                    title: 'Datal Models & Stores',
+                    title: 'Data Models & Stores',
                     text: ' group, sort, validate'
                 },
                 'persistence': {
@@ -417,6 +417,25 @@
                 'corp': { support: 'full' },
                 'open.source': { support: 'full' }
             }
+        },{
+            name: 'Ionic 1.3.0',
+            description: 'Ionic is focused on mobile app development and "Ionic currently requires AngularJS in order ' +
+                              'to work at its full potential". Does not support Windows Phone or Blackberry.',
+            sizeJS: '500 KB',
+            sizeCSS: '200 KB',
+            changeCells: {
+                'basic.widgets': { support: 30, description: 'does not go beyond some basic styling' },
+                'containers': { support: 'full', text: 'Tab Panel, Modal, Navigation' },
+                'styles': { support: 'full' },
+                'themes': { support: 'full' },
+                'visual.effects': { support: 'partial', description: 'some of the components animate (i.e. radios)' },
+                'events': { support: 'full', text: null },
+                'infinite.scroll': { support: 'partial', description: 'supports local data store, but not on-demand fetching' },
+                'ci': { support: 'full' },
+                'support': { support: 'full' },
+                'corp': { support: 'full' },
+                'open.source': { support: 'partial', description: 'pay for "Enterprise" to get access to hotfixes' }
+            }
         }];
         
         function deepCloneArray(arr) {
@@ -460,8 +479,9 @@
                     return null;
                 }
             }
+            // refreshing tooltips when searching
+            $scope.$watch('search', Opentip.findElements);
         });
-        
     </script>
     <link href="lib/opentip.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -481,7 +501,7 @@
 </head>
 <body ng-controller="Main">
 
-<label class="search">Search by Name: <input ng-model="search"></label>
+<label class="search">Search by Name: <input ng-model="search" autofocus></input></label>
 
 <div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'" class="framework">
     <div class="framework-header">
