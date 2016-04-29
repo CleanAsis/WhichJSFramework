@@ -235,7 +235,7 @@
             description: 'Originally AngularJS was defined as a "framework to build frameworks"; latest ' +
                               'verbiage is "a toolset for building the framework most suited to your application development". ' +
                               'Angular is heavily DOM-focused and the 1.5 version is plagued with data binding performance ' +
-                              'issues which are supposed to be addressed in version 2 (now in beta). This app is written in AngularJS.',
+                              'issues which are supposed to be addressed in version 2 (now in beta). This app uses AngularJS.',
             changeCells: {
                 'dom': { support: 30, description: 'Angular uses a stripped down version of jQuery for DOM manipulation.' },
                 'templating': { support: 'full' },
@@ -491,9 +491,19 @@
         }
         console.log(matrix);
     
-        var app = angular.module('WhichJSFramework', []);
-        var ctl = app.controller('Main', function ($scope) {
+        var app = angular.module('WhichJSFramework', []).config( ['$provide', function ($provide){
+            // fix Angular infinite loop when manually using history pushState
+            $provide.decorator('$browser', ['$delegate', function ($delegate) {
+                $delegate.onUrlChange = function () {};
+                $delegate.url = function () { return ""};
+                return $delegate;
+            }]);
+        }]);
+        var ctl = app.controller('Main', function ($scope, $location) {
             $scope.matrix = matrix;
+            
+            $scope.onClearSearch = function() { $scope.search = ''; }
+            
             // function for calculating gradient highlights
             $scope.getSupportedPercentageStyle = function(supported) { // supported is 0-100
                 var finalPercentage  = 0; // this needs to go from -100 to 100, from 0-100 of the supported var
@@ -508,8 +518,17 @@
                     return null;
                 }
             }
-            // refreshing tooltips when searching
-            $scope.$watch('search', Opentip.findElements);
+            
+            // when searching, refresh tooltips and update URL
+            $scope.$watch('search', function(newVal, oldVal) {
+                Opentip.findElements(); // otherwise tooltips won't work after re-rendering content
+                (typeof newVal !== 'undefined') && history.pushState(null, null, '?q=' + newVal);
+            });
+            
+            // load initial search criteria
+            if (location.search && location.search.indexOf('?q=') !== -1 ) {
+                $scope.search = location.search.substring(location.search.indexOf('?q=') + 3);
+            }
         });
     </script>
     <link href="lib/opentip.css" rel="stylesheet" type="text/css" />
@@ -531,6 +550,8 @@
 <body ng-controller="Main">
 
 <label class="search">Search by Name: <input ng-model="search" autofocus></input></label>
+
+<a href="" ng-if="search" ng-click="onClearSearch()">clear search</a>
 
 <div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'" class="framework">
     <div class="framework-header">
