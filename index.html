@@ -551,7 +551,9 @@
 
 <label class="search">Search by Name: <input ng-model="search" autofocus></input></label>
 
-<a href="" ng-if="search" ng-click="onClearSearch()">clear search</a>
+<a href="" ng-if="search" ng-click="onClearSearch()">
+    clear search ({{(matrix|filter:{name:search}).length}}/{{matrix.length}})
+</a>
 
 <div ng-repeat="framework in matrix | filter:{name: search} | orderBy: 'name'" class="framework">
     <div class="framework-header">
